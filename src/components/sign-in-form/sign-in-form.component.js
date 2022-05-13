@@ -2,13 +2,10 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import "./sign-in-form.styles.scss";
 import {
-    auth,
     signInWithGoogleRedirect,
-    createUserDocumentFromAuth,
     signInAuthUserWithEmailAndPassword
 } from "../../utils/firebase/firebase.utils";
-import {useEffect, useState} from "react";
-import {getRedirectResult} from "firebase/auth";
+import {useState} from "react";
 
 const defaultFormFields = {
     email: "",
@@ -17,20 +14,9 @@ const defaultFormFields = {
 
 const SignInForm = () => {
 
-    useEffect(() => {
-        async function getResults() {
-            const response = await getRedirectResult(auth);
-            if (response) {
-                const userDocRef = await createUserDocumentFromAuth(response.user);
-            }
-        }
-
-        getResults().catch(console.error);
-    }, [])
-
     const [formFields, setFormFields] = useState(defaultFormFields);
-
     const {email, password} = formFields;
+
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
 
@@ -43,8 +29,7 @@ const SignInForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await signInAuthUserWithEmailAndPassword(email, password);
-            console.log(response);
+            await signInAuthUserWithEmailAndPassword(email, password);
             resetFormFields();
         } catch (err) {
             switch (err.code) {
@@ -83,7 +68,13 @@ const SignInForm = () => {
                 />
                 <div className="buttons-container">
                     <Button type="submit">Sign In</Button>
-                    <Button type="button" buttonType="google" onClick={signInWithGoogleRedirect}>Google Sign In</Button>
+                    <Button
+                        type="button"
+                        buttonType="google"
+                        onClick={signInWithGoogleRedirect}
+                    >
+                        Google Sign In
+                    </Button>
                 </div>
             </form>
         </div>

@@ -88,7 +88,7 @@ const SignUpForm = () => {
                     minLength="6"
                 />
 
-                <Button type="submit" >Sign Up</Button>
+                <Button type="submit">Sign Up</Button>
             </form>
         </div>
     )
