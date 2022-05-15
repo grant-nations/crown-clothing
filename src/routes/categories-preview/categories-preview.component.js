@@ -1,18 +1,20 @@
 import {useContext} from "react";
 import {CategoriesContext} from "../../contexts/categories.context";
 import CategoryPreview from "../../components/category-preview/category-preview.component";
+import {OuterWrapper, InnerWrapper} from "../../App.styles";
 
 const CategoriesPreview = () => {
     const {categoriesMap} = useContext(CategoriesContext);
 
     return (
-        // note: <></> is shorthand for <Fragment></Fragment>
-        <>
-            {Object.keys(categoriesMap).map((title) => {
-                const products = categoriesMap[title]
-                return <CategoryPreview key={title} title={title} products={products}/>
-            })}
-        </>)
+        <OuterWrapper>
+            <InnerWrapper>
+                {Object.keys(categoriesMap).map((title) => {
+                    const products = categoriesMap[title]
+                    return <CategoryPreview key={title} title={title} products={products}/>
+                })}
+            </InnerWrapper>
+        </OuterWrapper>)
 }
 
 export default CategoriesPreview;
