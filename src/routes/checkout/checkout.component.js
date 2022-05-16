@@ -6,7 +6,6 @@ import {CheckoutContainer, CheckoutHeader, HeaderBlock, TotalSpan} from "./check
 const Checkout = () => {
     const {cartItems, cartTotal} = useContext(CartContext);
     return (
-
         <CheckoutContainer>
             <CheckoutHeader>
                 <HeaderBlock>

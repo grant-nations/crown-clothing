@@ -39,15 +39,13 @@ export const Body = styled(Link)`
 `;
 
 export const DirectoryItemContainer = styled.div`
-
   min-width: 30%;
   height: 240px;
   flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  margin: 0 7.5px 15px;
+  margin: 0 20px 40px 20px;
   overflow: hidden;
 
   &:hover {
@@ -61,13 +59,5 @@ export const DirectoryItemContainer = styled.div`
     & ${Body} {
       opacity: 0.9;
     }
-  }
-
-  &:first-child {
-    margin-right: 7.5px;
-  }
-
-  &:last-child {
-    margin-left: 7.5px;
   }
 `;

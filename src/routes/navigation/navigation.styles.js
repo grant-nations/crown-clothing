@@ -3,11 +3,10 @@ import {Link} from "react-router-dom";
 
 export const NavigationContainer = styled.div`
   position: fixed;
-  left: 30px;
-  right: 30px;
+  left: 0;
+  right: 0;
   top: 0;
   height: 70px;
-  width: calc(100vw - 60px);
   display: flex;
   justify-content: space-between;
   background-color: white;
@@ -20,9 +19,11 @@ export const LogoContainer = styled(Link)`
   align-items: center;
   height: 100%;
   width: 70px;
+  margin-left: 30px;
 `
 
 export const NavLinks = styled.div`
+  margin-right: 30px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
