@@ -1,4 +1,5 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useReducer} from "react";
+import {createAction} from "../utils/reducer/reducer.utils";
 
 const addCartItem = (cartItems, productToAdd) => {
     const existingCartItem = cartItems.find(cartItem => cartItem.id === productToAdd.id);
@@ -32,49 +33,95 @@ const clearCartItem = (cartItems, productToRemove) => {
     return cartItems.filter(item => item.id !== productToRemove.id);
 }
 
-export const CartContext = createContext({
+const INITIAL_STATE = {
     cartOpen: false,
+    cartItems: [],
+    cartQuantity: 0,
+    cartTotal: 0,
+}
+
+const CART_ACTION_TYPES = {
+    SET_CART_ITEMS: "SET_CART_ITEMS",
+    SET_CART_OPEN: "SET_CART_OPEN"
+}
+
+export const CartContext = createContext({
+    cartOpen: INITIAL_STATE.cartOpen,
     setCartOpen: () => {
     },
-    cartItems: [],
+    cartItems: INITIAL_STATE.cartItems,
     addItemToCart: () => {
     },
-    cartQuantity: 0,
+    cartQuantity: INITIAL_STATE.cartQuantity,
     removeItemFromCart: () => {
     },
     clearItemFromCart: () => {
     },
-    cartTotal: 0
+    cartTotal: INITIAL_STATE.cartTotal
 });
 
+
 export const CartProvider = ({children}) => {
-    const [cartOpen, setCartOpen] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
-    const [cartQuantity, setCartQuantity] = useState(0);
-    const [cartTotal, setCartTotal] = useState(0);
+
+    // reducers should not perform any state computations but just be used to set state.
+    const cartReducer = (state, action) => {
+        const {type, payload} = action;
+
+        switch (type) {
+            case CART_ACTION_TYPES.SET_CART_ITEMS:
+                return {
+                    ...state,
+                    ...payload
+                }
+            case CART_ACTION_TYPES.SET_CART_OPEN:
+                return {
+                    ...state,
+                    cartOpen: !state.cartOpen
+                }
+            default:
+                throw new Error(`Unhandled type of ${type} in cartReducer`);
+        }
+    }
 
     const addItemToCart = (productToAdd) => {
-        setCartItems(addCartItem(cartItems, productToAdd));
+        const newCartItems = addCartItem(cartItems, productToAdd);
+        updateCartItems(newCartItems);
     }
 
     const removeItemFromCart = (productToRemove) => {
-        setCartItems(removeCartItem(cartItems, productToRemove));
+        const newCartItems = removeCartItem(cartItems, productToRemove);
+        updateCartItems(newCartItems);
     }
 
     const clearItemFromCart = (productToClear) => {
-        setCartItems(clearCartItem(cartItems, productToClear));
+        const newCartItems = clearCartItem(cartItems, productToClear);
+        updateCartItems(newCartItems);
     }
 
-    useEffect(() => {
-        // any time the cartItems array changes, recalculate the cart count
-        const newCartQuantity = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-        setCartQuantity(newCartQuantity);
-    }, [cartItems])
+    const setCartOpen = () => {
+        dispatch(createAction(CART_ACTION_TYPES.SET_CART_OPEN));
+    }
 
-    useEffect(() => {
-        const newCartTotal = cartItems.reduce((total, cartItem) => total + cartItem.price * cartItem.quantity, 0);
-        setCartTotal(newCartTotal);
-    }, [cartItems])
+    const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+    const {cartOpen, cartItems, cartQuantity, cartTotal} = state;
+
+    const updateCartItems = (newCartItems) => {
+        // this is a function that receives new cart items. It then updates the cart total and cart count.
+        // Finally, it dispatches the SET_CART_ITEMS action in cartReducer
+
+        // generate new cart total
+        const newCartTotal = newCartItems.reduce((total, cartItem) => total + cartItem.price * cartItem.quantity, 0);
+
+        // generate new cart quantity
+        const newCartQuantity = newCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+
+        dispatch(createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {
+                cartItems: newCartItems,
+                cartTotal: newCartTotal,
+                cartQuantity: newCartQuantity
+            })
+        )
+    }
 
     const value = {
         cartOpen,

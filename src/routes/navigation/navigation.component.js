@@ -29,7 +29,7 @@ const Navigation = () => {
                             SIGN IN
                         </NavLink>
                     }
-                    <CartIcon onClick={() => setCartOpen(prev => !prev)}/>
+                    <CartIcon onClick={setCartOpen}/>
                 </NavLinks>
                 {cartOpen && <CartDropdown/>}
             </NavigationContainer>
