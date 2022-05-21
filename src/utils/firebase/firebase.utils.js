@@ -65,7 +65,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
         }
     }
 
-    return userDocRef;
+    return userSnapshot;
 }
 
 export const createAuthUserWithEmailAndPassword = (email, password) => {
@@ -106,4 +106,17 @@ export const getCategoriesAndDocuments = async () => {
     const categoryMap = querySnapshot.docs.map(docSnapshot => docSnapshot.data());
 
     return categoryMap;
+}
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            userAuth => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        )
+    })
 }
