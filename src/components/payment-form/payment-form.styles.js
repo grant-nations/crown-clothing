@@ -18,3 +18,8 @@ export const PaymentButton = styled(Button)`
   margin-left: auto;
   margin-top: 30px;
 `
+
+export const PaymentWarning = styled.p`
+  max-width: 80%;
+  margin: 20px 0;
+`

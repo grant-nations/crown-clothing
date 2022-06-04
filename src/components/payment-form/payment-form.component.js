@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useSelector} from "react-redux";
 import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import {BUTTON_TYPE_CLASSES} from "../button/button.component";
-import {PaymentFormContainer, FormContainer, PaymentButton} from "./payment-form.styles";
+import {PaymentFormContainer, FormContainer, PaymentButton, PaymentWarning} from "./payment-form.styles";
 
 import {selectCartTotal} from "../../store/cart/cart.selector";
 import {selectCurrentUser} from "../../store/user/user.selector";
@@ -43,10 +43,10 @@ const PaymentForm = () => {
 
         setIsProcessingPayment(false);
 
-        if(paymentResult.error){
+        if (paymentResult.error) {
             alert(paymentResult.error);
         } else {
-            if(paymentResult.paymentIntent.status === "succeeded")
+            if (paymentResult.paymentIntent.status === "succeeded")
                 alert("Payment Successful");
         }
     }
@@ -55,8 +55,12 @@ const PaymentForm = () => {
         <PaymentFormContainer>
             <FormContainer onSubmit={paymentHandler}>
                 <h2>Credit Card Payment: </h2>
+                <PaymentWarning>The following payment form is in test mode and will not accept real payments.
+                    Please use the following to submit a test payment:</PaymentWarning>
+                <PaymentWarning>Card Number: 4242 4242 4242 4242 | Exp Date: 4 24 | CVC: 242 | ZIP: 42424</PaymentWarning>
                 <CardElement/>
-                <PaymentButton isLoading={isProcessingPayment} buttonType={BUTTON_TYPE_CLASSES.inverted}>Pay now</PaymentButton>
+                <PaymentButton isLoading={isProcessingPayment} buttonType={BUTTON_TYPE_CLASSES.inverted}>Pay
+                    now</PaymentButton>
             </FormContainer>
         </PaymentFormContainer>
     )
