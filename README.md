@@ -4,22 +4,24 @@
 
 ## Description
 
-This application is still in progress.
+This application is still in progress. It is followed from the ZTM online course: Complete React Developer in 2022 (w/ Redux, Hooks, GraphQL), with some slight modifications.
 
-This is a mock e-commerce application created with React, Redux, Styled Components, Firebase, and (eventually) Stripe. It has functioning user authentication and management via Firebase, including Google sign in. The products displayed are fetched from the Firebase database and are maintained in application state using Redux Sagas and Redux-Persist.
+This is a mock e-commerce application created with React, Redux, Styled Components, Firebase, and Stripe. It has functioning user authentication and management via Firebase, including Google auth. The products displayed are fetched from the Firebase database and are maintained in application state using Redux Sagas and Redux-Persist.
 
 ---
 
 ## Branches
 
-There are different state management solutions in different branches of the application. (Note: some features may not be implemented in earlier branches, such as persisting user sessions.) The branch state management solutions are as follows:
+There are different branches for different impolementations of the application. (Note: some features may not be implemented in earlier branches, such as persisting user sessions.) The branches are as follows:
 
+- `typescript` :
+  - TS/TSX, state management with Redux Sagas, Stripe payment integration
 - `main` and `redux-saga-dev` :
-  - Redux Sagas
+  - JS/JSX, state management with Redux Sagas, Stripe payment integration
 - `redux-dev` :
-  - Redux Thunks
+  - JS/JSX, state management with Redux Thunks
 - `dev` :
-  - React Context
+  - JS/JSX, state management with React Context
 
 ---
 
