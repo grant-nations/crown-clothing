@@ -8,7 +8,7 @@ export const BackgroundImage = styled.div`
   background-position: center;
   
   // can access props like below
-  background-image: ${({imageUrl}) => `url(${imageUrl})`};
+  background-image: ${({imageUrl} : {imageUrl: string}) => `url(${imageUrl})`};
 `;
 
 export const Body = styled(Link)`

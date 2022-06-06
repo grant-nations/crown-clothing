@@ -1,13 +1,18 @@
 import {CartItemContainer, ItemDetails, NameSpan} from "./cart-item.styles";
+import {CartItem as CI} from "../../store/cart/cart.types";
 
-const CartItem = ({cartItem}) => {
+type CartItemProps = {
+    cartItem: CI;
+}
+
+const CartItem = ({cartItem} : CartItemProps) => {
     const {name, imageUrl, price, quantity} = cartItem;
     return (
         <CartItemContainer>
             <img src={imageUrl} alt={name}/>
             <ItemDetails>
                 <NameSpan>{name}</NameSpan>
-                <span className={price}>{quantity} x {price}</span>
+                <span>{quantity} x {price}</span>
             </ItemDetails>
         </CartItemContainer>
     )

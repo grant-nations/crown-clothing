@@ -1,6 +1,11 @@
 import {BackgroundImage, Body, DirectoryItemContainer} from "./directory-item.styles";
 
-const CategoryItem = ({imageUrl, title}) => {
+type CategoryItemProps = {
+    imageUrl: string;
+    title: string;
+}
+
+const CategoryItem = ({imageUrl, title} : CategoryItemProps) => {
     return (
         <DirectoryItemContainer>
             <BackgroundImage

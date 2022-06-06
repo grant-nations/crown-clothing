@@ -89,16 +89,16 @@ export const createUserDocumentFromAuth = async (
     return userSnapshot as QueryDocumentSnapshot<UserData>;
 }
 
-export const createAuthUserWithEmailAndPassword = (email: string, password: string) => {
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
     if (!email || !password) return;
 
-    return createUserWithEmailAndPassword(auth, email, password);
+    return await createUserWithEmailAndPassword(auth, email, password);
 }
 
-export const signInAuthUserWithEmailAndPassword = (email: string, password: string) => {
+export const signInAuthUserWithEmailAndPassword = async (email: string, password: string) => {
     if (!email || !password) return;
 
-    return signInWithEmailAndPassword(auth, email, password);
+    return await signInWithEmailAndPassword(auth, email, password);
 }
 
 export const signOutUser = () => signOut(auth);

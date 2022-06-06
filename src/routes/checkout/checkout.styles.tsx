@@ -6,7 +6,7 @@ export const CheckoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 70px auto 0;
+  margin: 70px auto 60px;
   padding: 0 30px 70px;
 `
 
