@@ -14,9 +14,9 @@ This is a mock e-commerce application created with React, Redux, Styled Componen
 
 There are different branches for different impolementations of the application. (Note: some features may not be implemented in earlier branches, such as persisting user sessions.) The branches are as follows:
 
-- `typescript` :
+- `main` and `typescript` :
   - TS/TSX, state management with Redux Sagas, Stripe payment integration
-- `main` and `redux-saga-dev` :
+- `redux-saga-dev` :
   - JS/JSX, state management with Redux Sagas, Stripe payment integration
 - `redux-dev` :
   - JS/JSX, state management with Redux Thunks
