@@ -1,11 +1,12 @@
 import {CartItemContainer, ItemDetails, NameSpan} from "./cart-item.styles";
 import {CartItem as CI} from "../../store/cart/cart.types";
+import {memo} from "react";
 
 type CartItemProps = {
     cartItem: CI;
 }
 
-const CartItem = ({cartItem} : CartItemProps) => {
+const CartItem = memo(({cartItem} : CartItemProps) => {
     const {name, imageUrl, price, quantity} = cartItem;
     return (
         <CartItemContainer>
@@ -16,6 +17,6 @@ const CartItem = ({cartItem} : CartItemProps) => {
             </ItemDetails>
         </CartItemContainer>
     )
-}
+});
 
 export default CartItem;
